@@ -5,30 +5,70 @@
   <title>Quiz Bíblico</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
+    .menu { margin-bottom: 20px; }
+    .menu button { margin: 5px; }
     .question { margin-bottom: 20px; }
-    button { margin: 5px; }
+    button.answer { display: block; margin: 5px 0; }
     #explanation { margin-top: 15px; font-weight: bold; }
   </style>
 </head>
 <body>
   <h1>Preguntas Bíblicas</h1>
 
-  <div class="question">
-    <p>¿Cómo le habló el ángel a José?</p>
-    <button onclick="checkAnswer('visión')">a) En una visión</button>
-    <button onclick="checkAnswer('sueño')">b) En un sueño</button>
-    <button onclick="checkAnswer('cara')">c) Cara a cara</button>
+  <!-- Menú de libros -->
+  <div class="menu">
+    <button onclick="loadQuestions('Mateo')">Mateo</button>
+    <button onclick="loadQuestions('Marcos')">Marcos</button>
+    <button onclick="loadQuestions('Lucas')">Lucas</button>
+    <button onclick="loadQuestions('Juan')">Juan</button>
+    <!-- Aquí puedes añadir los 27 libros -->
   </div>
 
-  <p id="explanation"></p>
+  <!-- Contenedor de preguntas -->
+  <div id="quiz"></div>
 
   <script>
-    function checkAnswer(answer) {
+    // Preguntas organizadas por libro
+    const questions = {
+      "Mateo": [
+        {
+          q: "¿Cómo le habló el ángel a José?",
+          options: ["En una visión", "En un sueño", "Cara a cara"],
+          correct: 1,
+          explanation: "Correcto ✅: El ángel se le apareció en un sueño (Mateo 1:20)."
+        }
+      ],
+      "Marcos": [
+        {
+          q: "¿Quién bautizó a Jesús?",
+          options: ["Pedro", "Juan el Bautista", "Andrés"],
+          correct: 1,
+          explanation: "Correcto ✅: Juan el Bautista lo bautizó en el Jordán."
+        }
+      ]
+      // Añade más libros y preguntas aquí
+    };
+
+    function loadQuestions(book) {
+      const quizDiv = document.getElementById('quiz');
+      quizDiv.innerHTML = `<h2>${book}</h2>`;
+      questions[book].forEach((item, index) => {
+        let html = `<div class="question"><p>${item.q}</p>`;
+        item.options.forEach((opt, i) => {
+          html += `<button class="answer" onclick="checkAnswer('${book}',${index},${i})">${opt}</button>`;
+        });
+        html += `</div>`;
+        quizDiv.innerHTML += html;
+      });
+    }
+
+    function checkAnswer(book, qIndex, optIndex) {
+      const item = questions[book][qIndex];
       let explanation = document.getElementById('explanation');
-      if(answer === 'sueño') {
-        explanation.innerText = "Correcto ✅: El ángel se le apareció en un sueño (Mateo 1:20).";
+      if(optIndex === item.correct) {
+        explanation.innerText = item.explanation;
       } else {
-        explanation.innerText = "Incorrecto ❌: Revisa Mateo 1:20, fue en un sueño.";
+        explanation.innerText = "Incorrecto ❌. " + item.explanation;
       }
     }
   </script>

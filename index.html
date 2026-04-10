@@ -9,7 +9,7 @@
     .menu button { margin: 5px; }
     .question { margin-bottom: 20px; }
     button.answer { display: block; margin: 5px 0; }
-    #explanation { margin-top: 15px; font-weight: bold; }
+    .explanation { margin-top: 10px; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -21,29 +21,29 @@
     <button onclick="loadQuestions('Marcos')">Marcos</button>
     <button onclick="loadQuestions('Lucas')">Lucas</button>
     <button onclick="loadQuestions('Juan')">Juan</button>
-    <button onclick="loadQuestions('Hechos')">Juan</button>
-    <button onclick="loadQuestions('Romanos')">Juan</button>
-    <button onclick="loadQuestions('1 Corintios')">Juan</button>
-    <button onclick="loadQuestions('2 Corintios')">Juan</button>
-    <button onclick="loadQuestions('Gálatas')">Juan</button>
-    <button onclick="loadQuestions('Efesios')">Juan</button>
-    <button onclick="loadQuestions('Filipense')">Juan</button>
-    <button onclick="loadQuestions('Colosenses')">Juan</button>
-    <button onclick="loadQuestions('1 Tesalonicenses')">Juan</button>
-    <button onclick="loadQuestions('2 Tesalonicenses')">Juan</button>
-    <button onclick="loadQuestions('1 Timoteo')">Juan</button>
-    <button onclick="loadQuestions('2 Timoteo')">Juan</button>
-    <button onclick="loadQuestions('Tito')">Juan</button>
-    <button onclick="loadQuestions('Filemón')">Juan</button>
-    <button onclick="loadQuestions('Santiago')">Juan</button>
-    <button onclick="loadQuestions('Hebreos')">Juan</button>
-    <button onclick="loadQuestions('1 Pedro')">Juan</button>
-    <button onclick="loadQuestions('2 Pedro')">Juan</button>
-    <button onclick="loadQuestions('1 Juan')">Juan</button>
-    <button onclick="loadQuestions('2 Juan')">Juan</button>
-    <button onclick="loadQuestions('3 Juan')">Juan</button>
-    <button onclick="loadQuestions('Judas')">Juan</button>
-    <button onclick="loadQuestions('Apocalipsis')">Juan</button>
+    <button onclick="loadQuestions('Hechos')">Hechos</button>
+    <button onclick="loadQuestions('Romanos')">Romanos</button>
+    <button onclick="loadQuestions('1 Corintios')">1 Corintios</button>
+    <button onclick="loadQuestions('2 Corintios')">2 Corintios</button>
+    <button onclick="loadQuestions('Gálatas')">Gálatas</button>
+    <button onclick="loadQuestions('Efesios')">Efesios</button>
+    <button onclick="loadQuestions('Filipenses')">Filipenses</button>
+    <button onclick="loadQuestions('Colosenses')">Colosenses</button>
+    <button onclick="loadQuestions('1 Tesalonicenses')">1 Tesalonicenses</button>
+    <button onclick="loadQuestions('2 Tesalonicenses')">2 Tesalonicenses</button>
+    <button onclick="loadQuestions('1 Timoteo')">1 Timoteo</button>
+    <button onclick="loadQuestions('2 Timoteo')">2 Timoteo</button>
+    <button onclick="loadQuestions('Tito')">Tito</button>
+    <button onclick="loadQuestions('Filemón')">Filemón</button>
+    <button onclick="loadQuestions('Hebreos')">Hebreos</button>
+    <button onclick="loadQuestions('Santiago')">Santiago</button>
+    <button onclick="loadQuestions('1 Pedro')">1 Pedro</button>
+    <button onclick="loadQuestions('2 Pedro')">2 Pedro</button>
+    <button onclick="loadQuestions('1 Juan')">1 Juan</button>
+    <button onclick="loadQuestions('2 Juan')">2 Juan</button>
+    <button onclick="loadQuestions('3 Juan')">3 Juan</button>
+    <button onclick="loadQuestions('Judas')">Judas</button>
+    <button onclick="loadQuestions('Apocalipsis')">Apocalipsis</button>
   </div>
 
   <!-- Contenedor de preguntas -->
@@ -67,26 +67,54 @@
           correct: 1,
           explanation: "Correcto ✅: Juan el Bautista lo bautizó en el Jordán."
         }
-      ]
-      // Añade más libros y preguntas aquí
+      ],
+      "Lucas": [],
+      "Juan": [],
+      "Hechos": [],
+      "Romanos": [],
+      "1 Corintios": [],
+      "2 Corintios": [],
+      "Gálatas": [],
+      "Efesios": [],
+      "Filipenses": [],
+      "Colosenses": [],
+      "1 Tesalonicenses": [],
+      "2 Tesalonicenses": [],
+      "1 Timoteo": [],
+      "2 Timoteo": [],
+      "Tito": [],
+      "Filemón": [],
+      "Hebreos": [],
+      "Santiago": [],
+      "1 Pedro": [],
+      "2 Pedro": [],
+      "1 Juan": [],
+      "2 Juan": [],
+      "3 Juan": [],
+      "Judas": [],
+      "Apocalipsis": []
     };
 
     function loadQuestions(book) {
       const quizDiv = document.getElementById('quiz');
       quizDiv.innerHTML = `<h2>${book}</h2>`;
+      if (!questions[book] || questions[book].length === 0) {
+        quizDiv.innerHTML += "<p>No hay preguntas aún para este libro.</p>";
+        return;
+      }
       questions[book].forEach((item, index) => {
         let html = `<div class="question"><p>${item.q}</p>`;
         item.options.forEach((opt, i) => {
           html += `<button class="answer" onclick="checkAnswer('${book}',${index},${i})">${opt}</button>`;
         });
-        html += `</div>`;
+        html += `<p class="explanation" id="explanation-${book}-${index}"></p></div>`;
         quizDiv.innerHTML += html;
       });
     }
 
     function checkAnswer(book, qIndex, optIndex) {
       const item = questions[book][qIndex];
-      let explanation = document.getElementById('explanation');
+      const explanation = document.getElementById(`explanation-${book}-${qIndex}`);
       if(optIndex === item.correct) {
         explanation.innerText = item.explanation;
       } else {
@@ -94,8 +122,5 @@
       }
     }
   </script>
-  <div id="quiz"></div>
-<p id="explanation"></p>
-
 </body>
 </html>

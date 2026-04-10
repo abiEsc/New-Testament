@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Bíblico</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .question { margin-bottom: 20px; }
+    button { margin: 5px; }
+    #explanation { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Preguntas Bíblicas</h1>
+
+  <div class="question">
+    <p>¿Cómo le habló el ángel a José?</p>
+    <button onclick="checkAnswer('visión')">a) En una visión</button>
+    <button onclick="checkAnswer('sueño')">b) En un sueño</button>
+    <button onclick="checkAnswer('cara')">c) Cara a cara</button>
+  </div>
+
+  <p id="explanation"></p>
+
+  <script>
+    function checkAnswer(answer) {
+      let explanation = document.getElementById('explanation');
+      if(answer === 'sueño') {
+        explanation.innerText = "Correcto ✅: El ángel se le apareció en un sueño (Mateo 1:20).";
+      } else {
+        explanation.innerText = "Incorrecto ❌: Revisa Mateo 1:20, fue en un sueño.";
+      }
+    }
+  </script>
+</body>
+</html>

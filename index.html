@@ -5,8 +5,24 @@
   <title>Quiz Bíblico</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
-    .menu { margin-bottom: 20px; }
-    .menu button { margin: 5px; }
+   .menu {
+  display: flex;            /* coloca los botones en fila */
+  flex-wrap: wrap;          /* permite que bajen si no caben */
+}
+
+.menu button {
+  background-color: #4CAF50; /* color de fondo verde */
+  color: white;              /* texto blanco */
+  border: none;              /* sin borde */
+  padding: 10px 15px;        /* espacio interno */
+  cursor: pointer;           /* mano al pasar */
+  margin: 0;                 /* elimina espacio entre botones */
+}
+
+.menu button:hover {
+  background-color: #45a049; /* color más oscuro al pasar */
+}
+
     .question { margin-bottom: 20px; }
     button.answer { display: block; margin: 5px 0; }
     .explanation { margin-top: 10px; font-weight: bold; }

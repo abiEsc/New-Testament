@@ -135,24 +135,27 @@
       "Apocalipsis": []
     };
 
-    function loadQuestions(book) {
-      const quizDiv = document.getElementById('quiz');
-      quizDiv.innerHTML = `<h2>${book}</h2>`;
-      if (!questions[book] || questions[book].length === 0) {
-        quizDiv.innerHTML += "<p>No hay preguntas aún para este libro.</p>";
-        return;
-      }
-      questions[book].forEach((item, index) => {
-        let html = `<div class="question"><p>${item.q}</p>`;
-        item.options.forEach((opt, i) => {
-          html += `<button class="answer" onclick="checkAnswer('${book}',${index},${i})">${opt}</button>`;
-        });
-        html += `<p class="explanation" id="explanation-${book}-${index}"></p></div>`;
-        quizDiv.innerHTML += html;
-      });
+   function loadQuestions(book) {
+    const quizDiv = document.getElementById('quiz');
+    quizDiv.innerHTML = `<h2>${book}</h2>`;
+    if (!questions[book] || questions[book].length === 0) {
+      quizDiv.innerHTML += "<p>No hay preguntas aún para este libro.</p>";
+      return;
     }
+    questions[book].forEach((item, index) => {
+      let html = `<div class="question"><p>${item.q}</p>`;
+      item.options.forEach((opt, i) => {
+        html += `<button class="answer" onclick="checkAnswer('${book}',${index},${i})">${opt}</button>`;
+      });
+      html += `<p class="explanation" id="explanation-${book}-${index}"></p></div>`;
+      quizDiv.innerHTML += html;
+    });
+  
+    // Aquí sí se agrega el botón
     quizDiv.innerHTML += `<button onclick="showScore()">Puntuación obtenida</button>
-                      <p id="final-score"></p>`;
+                          <p id="final-score"></p>`;
+  }
+
     let score = 0;
     function checkAnswer(book, qIndex, optIndex) {
       const item = questions[book][qIndex];

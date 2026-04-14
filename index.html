@@ -151,15 +151,22 @@
         quizDiv.innerHTML += html;
       });
     }
-
+    quizDiv.innerHTML += `<button onclick="showScore()">Puntuación obtenida</button>
+                      <p id="final-score"></p>`;
+    let score = 0;
     function checkAnswer(book, qIndex, optIndex) {
       const item = questions[book][qIndex];
       const explanation = document.getElementById(`explanation-${book}-${qIndex}`);
       if(optIndex === item.correct) {
         explanation.innerText = item.explanation;
+        score++; // suma un punto por respuesta correcta
       } else {
         explanation.innerText = "Incorrecto ❌. " + item.explanation;
       }
+    }
+    function showScore() {
+      const finalScore = document.getElementById('final-score');
+      finalScore.innerText = `Tu puntuación es: ${score} puntos`;
     }
 
   </script>
